@@ -40,7 +40,8 @@ resource "aws_codepipeline" "terraform_pipeline" {
         Owner      = "unuste37"
         Repo       = "terraform"
         Branch     = "main"
-        OAuthToken = "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"
+        #OAuthToken = "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"
+        OAuthToken = var.github_token
       }
     }
   }
