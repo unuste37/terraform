@@ -1,0 +1,17 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo "Installing Terraform..."
+      - curl -O https://releases.hashicorp.com/terraform/1.14.2/terraform_1.14.2_linux_amd64.zip
+      - unzip terraform_1.14.2_linux_amd64.zip
+      - mv terraform /usr/local/bin/
+  build:
+    commands:
+      - terraform init -input=false
+      - terraform validate
+      - terraform apply -auto-approve
+artifacts:
+  files:
+    - '**/*'
