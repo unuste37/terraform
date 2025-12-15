@@ -1,0 +1,8 @@
+# Terraform directories and files to ignore
+.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
+crash.log
+# Include this if you manually save plans
+*.tfplan
