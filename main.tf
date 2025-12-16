@@ -84,33 +84,3 @@ resource "aws_instance" "web" {
   user_data              = file("${path.module}/user_data.sh")
   tags                   = local.tags
 }
-
-resource "aws_s3_bucket" "codepipeline_bucket" {
-  bucket = "${var.project_name}-artifacts-${random_id.suffix.hex}"
-  force_destroy = true
-  tags = local.tags
-}
-
-resource "random_id" "suffix" {
-  byte_length = 3
-}
-
-resource "aws_iam_role" "codebuild_role" {
-  name = "${var.project_name}-cb-role"
-
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Effect = "Allow"
-      Principal = {
-        Service = "codebuild.amazonaws.com"
-      }
-      Action = "sts:AssumeRole"
-    }]
-  })
-}
-
-resource "aws_iam_role_policy_attachment" "codebuild_attach" {
-  role       = aws_iam_role.codebuild_role.name
-  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
-}
